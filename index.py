@@ -13,24 +13,11 @@ app.config.from_object('config')
 
 @app.route('/')
 def index():
-    nb_airport_per_continent = db.airports.aggregate([
-        {"$group": {"_id": "$continent", "count": {"$sum": 1}}},
-        {"$sort": {"_id": 1}}
-    ])
-
-    airports_by_score = db.airports.aggregate([
-        {"$group": {
-            "_id": "$continent", 
-            "name" : {"$first" : "$name"}, 
-            "country" : {"$first" : "$country"}, 
-            "maxScore": { "$max": "$score" }
-        }},
-        {"$sort": {"maxScore": -1}}
-    ])
-
-    return render_template('index.html',
-                            nb_airport_per_continent=nb_airport_per_continent,
-                            airports_by_score=airports_by_score)
+    tab = []
+    mycol = db["airports"]
+    for x in mycol.find():
+        tab.append(x)
+    return render_template('index.html',tab = tab)
 
 if __name__ == "__main__":
     app.run()
