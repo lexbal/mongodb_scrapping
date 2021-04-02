@@ -43,8 +43,8 @@ def index():
                             airports_continent_by_score=airports_continent_by_score,
                             airports_subregion_by_score=airports_subregion_by_score)
 
-@app.route('/detail')
-def detail():
+@app.route('/countries')
+def countries():
     countries = db.airports.aggregate([
         {"$group": {"_id": "$country"}},
         {"$sort": {"_id": 1}}
