@@ -1,4 +1,25 @@
-html, body {
-    padding-top: 4%;
-    padding-bottom: 4%;
+h2 {
+    margin-bottom: 25px;
+    margin-top: 55px;
+}
+
+.text-footer, .navbar-nav{
+    color: black;
+    font-weight: bolder;
+}
+footer{
+    position: relative;
+    margin-top: 20px;
+}
+
+.container{
+    margin-top: 20px;
+}
+
+#country-filter {
+    margin-bottom: 15px;
+}
+
+.card-deck {
+    margin-bottom: 15px;
 }
