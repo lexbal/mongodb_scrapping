@@ -53,6 +53,35 @@ def best():
                             airports_continent_by_score=airports_continent_by_score,
                             airports_subregion_by_score=airports_subregion_by_score)
 
+@app.route('/best-restaurants-shops')
+def best_restau_shops():
+    airports_continent_by_restaurant = db.airports.aggregate([
+        {"$project": {"_id": 0, "name" : 1 }},
+        {"$group": {
+            "_id": "$continent", 
+            # "name" : {"$first" : "$name"}, 
+            # "country" : {"$first" : "$country"}, 
+            "maxScore": { "$max": "$notation.restaurants_shops" }
+        }},
+        {"$sort": {"maxScore": -1}}
+    ])
+
+    airports_subregion_by_restau = db.airports.aggregate([
+        {"$group": {
+            "_id": "$subregion", 
+            "name" : {"$first" : "$name"}, 
+            "country" : {"$first" : "$country"}, 
+            "maxScore": { "$max": "$notation.restaurants_shops" }
+        }},
+        {"$sort": {"maxScore": -1, "_id": 1}}
+    ])
+
+
+
+    return render_template('best/restaurants.html',
+                            airports_continent_by_restaurant=airports_continent_by_restaurant,
+                            airports_subregion_by_restau=airports_subregion_by_restau)
+
 @app.route('/countries')
 def countries():
     countries = db.airports.aggregate([
