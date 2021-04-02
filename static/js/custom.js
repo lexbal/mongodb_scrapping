@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-$(document).ready(function() {
-    $('.dataframe').DataTable();
-} );
-=======
 function loaderAjax(obj) {
     obj.html(
         '<div class="loader">'
@@ -45,4 +40,3 @@ $(function () {
         });
     });
 });
->>>>>>> main

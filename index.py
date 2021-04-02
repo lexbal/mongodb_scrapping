@@ -1,11 +1,7 @@
 import locale
 import pymongo
 
-<<<<<<< HEAD
-from flask import Flask, render_template
-=======
 from flask import Flask, render_template, request
->>>>>>> main
 from pymongo import MongoClient
 from mongo_db import Mongo;
 
