@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Ville</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for airport in airports %}
+                    <tr>
+                        <td>{{ airport.name }}</td>
+                        <td>{{ airport.city }}</td>
+                        <td>{{ airport.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

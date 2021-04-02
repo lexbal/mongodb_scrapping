@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div id="filters">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <select class="form-control" id="country-filter">
+                            <option value="">-------</option>
+                            {% for country in countries %}
+                                <option value="{{ country._id|lower|replace(' ', '_') }}">{{ country._id }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="content">
+                {% include "detail/global_data.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
