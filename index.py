@@ -72,6 +72,6 @@ def filter_country():
     ])
 
     return render_template('detail/global_data.html', airports=airports)
-    
+
 if __name__ == "__main__":
     app.run()
