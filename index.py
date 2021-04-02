@@ -1,7 +1,7 @@
 import locale
 import pymongo
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from pymongo import MongoClient
 from mongo_db import Mongo;
 
@@ -18,7 +18,7 @@ def index():
         {"$sort": {"_id": 1}}
     ])
 
-    airports_by_score = db.airports.aggregate([
+    airports_continent_by_score = db.airports.aggregate([
         {"$group": {
             "_id": "$continent", 
             "name" : {"$first" : "$name"}, 
@@ -28,9 +28,40 @@ def index():
         {"$sort": {"maxScore": -1}}
     ])
 
+    airports_subregion_by_score = db.airports.aggregate([
+        {"$group": {
+            "_id": "$subregion", 
+            "name" : {"$first" : "$name"}, 
+            "country" : {"$first" : "$country"}, 
+            "maxScore": { "$max": "$score" }
+        }},
+        {"$sort": {"maxScore": -1, "_id": 1}}
+    ])
+
     return render_template('index.html',
                             nb_airport_per_continent=nb_airport_per_continent,
-                            airports_by_score=airports_by_score)
+                            airports_continent_by_score=airports_continent_by_score,
+                            airports_subregion_by_score=airports_subregion_by_score)
 
+@app.route('/countries')
+def countries():
+    countries = db.airports.aggregate([
+        {"$group": {"_id": "$country"}},
+        {"$sort": {"_id": 1}}
+    ])
+    return render_template('detail/aeroport_by_continent.html', countries=countries)
+
+@app.route('/filter/country', methods=['POST'])
+def filter_country():
+    country  = request.form['country']
+    country  = country.replace("_", " ").title()
+
+    airports = db.airports.aggregate([
+        {"$match": {"country": country}},
+        {"$sort": {"country": 1}}
+    ])
+
+    return render_template('detail/global_data.html', airports=airports)
+    
 if __name__ == "__main__":
     app.run()
