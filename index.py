@@ -71,7 +71,12 @@ def filter_country():
         {"$sort": {"country": 1}}
     ])
 
-    return render_template('detail/global_data.html', airports=airports)
+    restau = db.airports.aggregate([
+        {"$match": {"country": country}},
+        {"$sort": {"notation.restaurants_shops": 1}}
+    ])
+
+    return render_template('detail/global_data.html', airports=airports, restau=restau)
 
 if __name__ == "__main__":
     app.run()
