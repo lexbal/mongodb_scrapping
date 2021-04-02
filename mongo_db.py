@@ -6,7 +6,7 @@ from dotenv import load_dotenv;
 load_dotenv()
 
 class Mongo(object):
-    
+
     __host     = os.getenv("MONGO_HOST")
     __database = os.getenv("MONGO_DBNAME")
     __client   = None
@@ -16,7 +16,7 @@ class Mongo(object):
             try:
                 self.__client = MongoClient(self.__host)
             except pymongo.errors.ConnectionFailure:
-                print("Failed to connect to server {}".format(self.__host)) 
+                print("Failed to connect to server {}".format(self.__host))
 
     def get_client(self):
         return self.__client
@@ -27,5 +27,5 @@ class Mongo(object):
 
         if dbname in client.list_database_names():
             return client[dbname]
-        
+
         return None

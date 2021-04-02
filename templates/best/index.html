@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h2>Nombres d'aeroports par continents</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Continent</th>
+                        <th>Nombre d'aeroports</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in nb_airport_per_continent %}
+                        <tr>
+                            <td>{{ row._id }}</td>
+                            <td>{{ row.count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h2>Meilleur aeroport de chaques continents</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="card-deck">
+                {% for row in airports_continent_by_score %}
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            {{ row._id }}, {{ row.country }}
+                        </div>
+                        <div class="card-body">
+                        <h5 class="card-title">{{ row.name }}</h5>
+                        <p class="card-text">{{ row.maxScore }}/10</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h2>Meilleur aeroport de chaques sous-continents</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            {% for row in airports_subregion_by_score %}
+                {% set loop_custom = loop.index-1 %}
+
+                {% if loop_custom is divisibleby(5) or loop.first %}
+                    {% if not loop.first %}
+                        </div>
+                    {% endif %}
+                    <div class="card-deck">
+                {% endif %}
+                    <div class="card shadow-sm" style="width: 18rem;">
+                        <div class="card-header">
+                            {{ row._id }}, {{ row.country }}
+                        </div>
+                        <div class="card-body">
+                        <h5 class="card-title">{{ row.name }}</h5>
+                        <p class="card-text">{{ row.maxScore }}/10</p>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
