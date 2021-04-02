@@ -11,6 +11,12 @@ function loaderAjax(obj) {
 
 $(function () {
     $('.dataframe').DataTable();
+    
+    $('#dtBasicExample').DataTable({
+        //"paging": false, // false to disable pagination (or any other option)
+        "pagingType": "full_numbers"
+    });
+    $('.dataTables_length').addClass('bs-select');
 
     $('#filters').on('change', '#country-filter', function (e) {
         e.preventDefault();
