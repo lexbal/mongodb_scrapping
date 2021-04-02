@@ -20,3 +20,26 @@
         </table>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Ville</th>
+                    <th>Note des restaurants et magasins</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for restaurants in restau %}
+                    <tr>
+                        <td>{{ restaurants.name }}</td>
+                        <td>{{ restaurants.city }}</td>
+                        <td>{{ restaurants.notation.punctuality }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
