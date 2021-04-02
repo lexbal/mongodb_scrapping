@@ -1,3 +1,8 @@
+h2 {
+    margin-bottom: 25px;
+    margin-top: 55px;
+}
+
 .text-footer, .navbar-nav{
     color: black;
     font-weight: bolder;
@@ -9,4 +14,12 @@ footer{
 
 .container{
     margin-top: 20px;
+}
+
+#country-filter {
+    margin-bottom: 15px;
+}
+
+.card-deck {
+    margin-bottom: 15px;
 }
